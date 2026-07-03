@@ -54,29 +54,31 @@ function Dashboard() {
                 <div className="row">
                     <div className="col-12">
                         {/* Top Header */}
-                        <div className="d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm mb-4">
+                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 bg-white p-3 rounded shadow-sm mb-4">
                             <h2 className="mb-0 fw-bold text-primary">
                                 <span className="me-2">📊</span>
                                 Personal Finance Dashboard
                             </h2>
-                            <button
-                                className="btn btn-outline-primary btn-sm px-4"
-                                onClick={() => navigate('/transactions')}
-                            >
-                                Transactions
-                            </button>
-                            <button
-                                className="btn btn-outline-primary btn-sm px-4"
-                                onClick={() => navigate('/categories')}
-                            >
-                                Manage Categories
-                            </button>
-                            <button
-                                className="btn btn-outline-danger btn-sm px-4"
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </button>
+                            <div className="d-flex flex-wrap gap-2">
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => navigate('/transactions')}
+                                >
+                                    Transactions
+                                </button>
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => navigate('/categories')}
+                                >
+                                    Manage Categories
+                                </button>
+                                <button
+                                    className="btn btn-outline-danger"
+                                    onClick={handleLogout}
+                                >
+                                    Logout
+                                </button>
+                            </div>
                         </div>
 
                         {/* Error Alert */}
@@ -125,7 +127,7 @@ function Dashboard() {
                         {/* Monthly Summary */}
                         <div className="card shadow-sm border-0">
                             <div className="card-header bg-white border-bottom py-3">
-                                <h4 className="mb-0 text-secondary">
+                                <h4 className="h5 h-md-4 mb-0 text-secondary">
                                     <span className="me-2">📅</span>
                                     Monthly Summary
                                 </h4>

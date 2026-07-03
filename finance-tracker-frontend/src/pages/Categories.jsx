@@ -54,37 +54,55 @@ const Categories = () => {
 
     return (
         <div className="container mt-4">
-            <h2>Manage Categories</h2>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
 
-            <button
-                className="btn btn-outline-secondary btn-sm mb-2"
-                onClick={() => navigate('/dashboard')}
-            >
-                ← Back to Dashboard
-            </button>
+                <h2 className="fw-bold text-primary mb-0">
+                    📂 Manage Categories
+                </h2>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mb-3 d-flex gap-2">
-
-                <input
-                    className="form-control"
-                    placeholder="Category Name"
-                    {...register('name')}
-                    required
-                />
-
-                <select
-                    className="form-select"
-                    {...register('type')}
-                    required
+                <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => navigate("/dashboard")}
                 >
-                    <option value="">Select Type</option>
-                    <option value="INCOME">Income</option>
-                    <option value="EXPENSE">Expense</option>
-                </select>
-
-                <button type="submit" className="btn btn-success">
-                    Add
+                    ← Dashboard
                 </button>
+
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="row g-3">
+
+                    <div className="col-12 col-md-5">
+                        <input
+                            className="form-control"
+                            placeholder="Category Name"
+                            {...register("name")}
+                            required
+                        />
+                    </div>
+
+                    <div className="col-12 col-md-4">
+                        <select
+                            className="form-select"
+                            {...register("type")}
+                            required
+                        >
+                            <option value="">Select Type</option>
+                            <option value="INCOME">Income</option>
+                            <option value="EXPENSE">Expense</option>
+                        </select>
+                    </div>
+
+                    <div className="col-12 col-md-3">
+                        <button
+                            type="submit"
+                            className="btn btn-success w-100"
+                        >
+                            Add Category
+                        </button>
+                    </div>
+
+                </div>
             </form>
 
             {categories.length === 0 ? (
@@ -96,25 +114,28 @@ const Categories = () => {
 
                     <ul className="list-group mb-4">
                         {defaultCategories.map(cat => (
-                            <li
-                                key={cat.id}
-                                className="list-group-item d-flex justify-content-between align-items-center"
-                            >
-                                <div>
-                                    <strong>{cat.name}</strong>
+                            <li key={cat.id} className="list-group-item">
+                                <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
 
-                                    <span
-                                        className={`badge ms-2 ${cat.type === "INCOME"
-                                            ? "bg-success"
-                                            : "bg-danger"
-                                            }`}
-                                    >
-                                        {cat.type}
-                                    </span>
+                                    <div>
+                                        <strong>{cat.name}</strong>
 
-                                    <span className="badge bg-secondary ms-2">
-                                        Default
-                                    </span>
+                                        <div className="d-flex flex-wrap gap-2 mt-2">
+                                            <span
+                                                className={`badge ${cat.type === "INCOME"
+                                                    ? "bg-success"
+                                                    : "bg-danger"
+                                                    }`}
+                                            >
+                                                {cat.type}
+                                            </span>
+
+                                            <span className="badge bg-secondary">
+                                                Default
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                         ))}
@@ -124,33 +145,41 @@ const Categories = () => {
                     <h4 className="mb-3">My Categories</h4>
 
                     {customCategories.length === 0 ? (
-                        <p className="text-muted">No custom categories yet.</p>
+                        <div className="alert alert-light border text-center">
+                            <h5>📂 No custom categories yet</h5>
+                            <p className="mb-0">
+                                Create your first category using the form above.
+                            </p>
+                        </div>
                     ) : (
                         <ul className="list-group">
                             {customCategories.map(cat => (
-                                <li
-                                    key={cat.id}
-                                    className="list-group-item d-flex justify-content-between align-items-center"
-                                >
-                                    <div>
-                                        <strong>{cat.name}</strong>
+                                <li key={cat.id} className="list-group-item">
+                                    <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
 
-                                        <span
-                                            className={`badge ms-2 ${cat.type === "INCOME"
-                                                ? "bg-success"
-                                                : "bg-danger"
-                                                }`}
+                                        <div>
+                                            <strong>{cat.name}</strong>
+
+                                            <div className="d-flex flex-wrap gap-2 mt-2">
+                                                <span
+                                                    className={`badge ${cat.type === "INCOME"
+                                                        ? "bg-success"
+                                                        : "bg-danger"
+                                                        }`}
+                                                >
+                                                    {cat.type}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            className="btn btn-sm btn-danger mt-3 mt-md-0"
+                                            onClick={() => deleteCategory(cat.id)}
                                         >
-                                            {cat.type}
-                                        </span>
-                                    </div>
+                                            Delete
+                                        </button>
 
-                                    <button
-                                        className="btn btn-sm btn-danger"
-                                        onClick={() => deleteCategory(cat.id)}
-                                    >
-                                        Delete
-                                    </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
