@@ -49,6 +49,9 @@ const Categories = () => {
         }
     };
 
+    const defaultCategories = categories.filter(cat => cat.is_default);
+    const customCategories = categories.filter(cat => !cat.is_default);
+
     return (
         <div className="container mt-4">
             <h2>Manage Categories</h2>
@@ -87,34 +90,72 @@ const Categories = () => {
             {categories.length === 0 ? (
                 <p>No categories found.</p>
             ) : (
-                <ul className="list-group">
-                    {categories.map(cat => (
-                        <li
-                            key={cat.id}
-                            className="list-group-item d-flex justify-content-between align-items-center"
-                        >
-                            <div>
-                                <strong>{cat.name}</strong>
+                <>
+                    {/* Default Categories */}
+                    <h4 className="mt-4 mb-3">Default Categories</h4>
 
-                                <span
-                                    className={`badge ms-2 ${cat.type === 'INCOME'
-                                        ? 'bg-success'
-                                        : 'bg-danger'
-                                        }`}
-                                >
-                                    {cat.type}
-                                </span>
-                            </div>
-
-                            <button
-                                className="btn btn-sm btn-danger"
-                                onClick={() => deleteCategory(cat.id)}
+                    <ul className="list-group mb-4">
+                        {defaultCategories.map(cat => (
+                            <li
+                                key={cat.id}
+                                className="list-group-item d-flex justify-content-between align-items-center"
                             >
-                                Delete
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                                <div>
+                                    <strong>{cat.name}</strong>
+
+                                    <span
+                                        className={`badge ms-2 ${cat.type === "INCOME"
+                                            ? "bg-success"
+                                            : "bg-danger"
+                                            }`}
+                                    >
+                                        {cat.type}
+                                    </span>
+
+                                    <span className="badge bg-secondary ms-2">
+                                        Default
+                                    </span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* User Categories */}
+                    <h4 className="mb-3">My Categories</h4>
+
+                    {customCategories.length === 0 ? (
+                        <p className="text-muted">No custom categories yet.</p>
+                    ) : (
+                        <ul className="list-group">
+                            {customCategories.map(cat => (
+                                <li
+                                    key={cat.id}
+                                    className="list-group-item d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <strong>{cat.name}</strong>
+
+                                        <span
+                                            className={`badge ms-2 ${cat.type === "INCOME"
+                                                ? "bg-success"
+                                                : "bg-danger"
+                                                }`}
+                                        >
+                                            {cat.type}
+                                        </span>
+                                    </div>
+
+                                    <button
+                                        className="btn btn-sm btn-danger"
+                                        onClick={() => deleteCategory(cat.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </>
             )}
         </div>
     );
